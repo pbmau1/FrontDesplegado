@@ -1,0 +1,77 @@
+<div>
+  <mat-card class="login-card">
+    <mat-card-content>
+      <div class="container">
+        <div style="text-align: center; margin: 5%">
+          <h2>{{ edicion ? 'Editar recurso' : 'Registrar recurso' }}</h2>
+        </div>
+
+        <div style="text-align: center; margin: 5%">
+          <form [formGroup]="form" (submit)="aceptar()">
+
+            @if(edicion){
+            <mat-form-field appearance="outline" class="custom-field">
+              <mat-label>ID</mat-label>
+              <input matInput formControlName="idRecurso" />
+            </mat-form-field>
+            }
+
+            <div class="form-grid">
+
+              <mat-form-field appearance="outline" class="custom-field">
+                <mat-label>titulo</mat-label>
+                <input matInput formControlName="titulo" maxlength="15" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="custom-field">
+                <mat-label>descripcion</mat-label>
+                <input matInput formControlName="descripcion" maxlength="50" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="custom-field">
+                <mat-label>tipo</mat-label>
+                <mat-select formControlName="tipo">
+                  <mat-option *ngFor="let t of tipos" [value]="t">{{ t }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="custom-field">
+                <mat-label>autor</mat-label>
+                <input matInput formControlName="autor" maxlength="15" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="custom-field">
+                <mat-label>fuente</mat-label>
+                <input matInput formControlName="fuente" maxlength="15" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="custom-field">
+                <mat-label>url</mat-label>
+                <input matInput formControlName="url" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="custom-field">
+                <mat-label>fecha publicacion</mat-label>
+                <input matInput [matDatepicker]="pickerPub" formControlName="fechapublicacion">
+                <mat-datepicker-toggle matSuffix [for]="pickerPub"></mat-datepicker-toggle>
+                <mat-datepicker #pickerPub></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="custom-field">
+                <mat-label>fecha subida</mat-label>
+                <input matInput formControlName="fechasubida" [disabled]="true">
+              </mat-form-field>
+
+            </div>
+
+            <div class="boton-container">
+              <button mat-raised-button="primary" class="custom-button">
+                {{ edicion ? 'Actualizar' : 'Registrar' }}
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>

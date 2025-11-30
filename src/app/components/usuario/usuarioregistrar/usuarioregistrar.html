@@ -1,0 +1,104 @@
+
+<div class="page-background">
+  <mat-card class="login-card">
+    <mat-card-content>
+      <div class="container">
+        <div style="margin-bottom: 15px">
+          <img src="/assets/img/logocortado.png" alt="Logo de la empresa" style="width: 120px" />
+        </div>
+
+        <div style="text-align: center; margin: 5%">
+          <h2 style="color: #4158a6">
+            {{ edicion ? 'Editar usuario' : 'Registrar usuario' }}
+          </h2>
+        </div>
+
+        <div style="text-align: center; margin: 5%">
+          <form [formGroup]="form" (submit)="aceptar()">
+            <!-- 🔵 ID SOLO EN EDICIÓN — READONLY Y COLOR PLOMO -->
+            @if(edicion){
+            <mat-form-field appearance="outline" class="custom-field">
+              <mat-label>ID</mat-label>
+              <input
+                matInput
+                formControlName="codigo"
+                readonly
+                style="background: #e6e6e6; color: #555"
+              />
+            </mat-form-field>
+            }
+
+            <!-- Nombre -->
+            <mat-form-field appearance="outline" class="custom-field">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="nombre" placeholder="nombre" />
+              <mat-error *ngIf="form.get('nombre')?.hasError('required')">
+                El nombre es obligatorio
+              </mat-error>
+            </mat-form-field>
+
+            <br />
+
+            <!-- Correo -->
+            <mat-form-field appearance="outline" class="custom-field">
+              <mat-label>Correo</mat-label>
+              <input matInput formControlName="correo" placeholder="correo" />
+              <mat-error *ngIf="form.get('correo')?.hasError('required')">
+                El correo es obligatorio
+              </mat-error>
+              <mat-error *ngIf="form.get('correo')?.hasError('email')">
+                Debe ingresar un correo válido (debe incluir "@")
+              </mat-error>
+            </mat-form-field>
+
+            <!-- ⚠ MENSAJE DE ERROR DE CORREO DUPLICADO -->
+            <div *ngIf="mensajeError" style="color: #d32f2f; font-size: 14px; margin-top: 10px">
+              {{ mensajeError }}
+            </div>
+
+            <br />
+
+            <!-- Contraseña solo cuando NO es edición -->
+            <ng-container *ngIf="!edicion">
+              <mat-form-field appearance="outline" class="custom-field">
+                <mat-label>Contraseña</mat-label>
+                <input
+                  matInput
+                  formControlName="contrasenia"
+                  type="password"
+                  placeholder="contrasenia"
+                />
+                <mat-error *ngIf="form.get('contrasenia')?.hasError('required')">
+                  La contraseña es obligatoria
+                </mat-error>
+                <mat-error *ngIf="form.get('contrasenia')?.hasError('minlength')">
+                  La contraseña debe tener 10 caracteres o más
+                </mat-error>
+              </mat-form-field>
+            </ng-container>
+
+            <br />
+
+            @if(!edicion){
+            <div class="button-group">
+              <button mat-raised-button color="warn" class="custom-button" (click)="cerrar()">
+                Regresar
+              </button>
+
+              <button mat-raised-button color="primary" class="custom-button" (click)="aceptar()">
+                Registrar
+              </button>
+            </div>
+            } @if(edicion){
+
+            <button mat-raised-button color="primary" class="custom-button" (click)="aceptar()">
+              Actualizar
+            </button>
+
+            }
+          </form>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,48 @@
+/* Contenedor que centra el card */
+.card-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+}
+
+/* Card pequeño y bonito */
+.card-form {
+    width: 100%;
+    max-width: 420px;
+    /* 🔥 tamaño compacto */
+    padding: 30px 35px;
+    background: #f7f7f7;
+    /* 🔥 fondo gris suave igual al estilo que quieres */
+    border-radius: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.10);
+}
+
+/* Título */
+.card-form h2 {
+    font-size: 32px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Inputs del formulario */
+mat-form-field {
+    width: 100%;
+    margin-bottom: 22px;
+}
+
+/* Botón principal */
+.btn-submit {
+    width: 100%;
+    background: #ff8343;
+    color: white;
+    padding: 12px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.btn-submit:hover {
+    background: #ff6b1f;
+}

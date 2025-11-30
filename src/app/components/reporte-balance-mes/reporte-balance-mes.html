@@ -1,0 +1,133 @@
+<div class="container">
+  <mat-card class="buscar-card">
+
+    <mat-card-title style="text-align: center; margin: 5%;"><h2>Buscar Balance por Mes</h2></mat-card-title>
+
+    <mat-card-content>
+
+      <div class="form-section">
+
+        <mat-form-field appearance="outline" class="custom-field">
+          <mat-label>Mes</mat-label>
+          <mat-select [(ngModel)]="mesBuscado">
+            <mat-option *ngFor="let m of meses" [value]="m">
+              {{ m }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="btn-buscar" (click)="buscarPorMes()">
+          Buscar
+        </button>
+
+        <button mat-raised-button color="primary" class="btn-limpiar" (click)="limpiar()">
+          Limpiar
+        </button>
+
+      </div>
+
+      <p class="mensaje" *ngIf="mensaje">{{ mensaje }}</p>
+
+      <!-- Tabla -->
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z3"
+             *ngIf="dataSource.data.length > 0">
+
+        <!-- Mes -->
+        <ng-container matColumnDef="mes">
+          <th mat-header-cell *matHeaderCellDef> Mes </th>
+          <td mat-cell *matCellDef="let element">{{ element.mes }}</td>
+        </ng-container>
+
+        <!-- Año -->
+        <ng-container matColumnDef="anio">
+          <th mat-header-cell *matHeaderCellDef> Año </th>
+          <td mat-cell *matCellDef="let element">{{ element.anio }}</td>
+        </ng-container>
+
+        <!-- Total gasto -->
+        <ng-container matColumnDef="total_gasto">
+          <th mat-header-cell *matHeaderCellDef> Gasto Total </th>
+          <td mat-cell *matCellDef="let element">{{ element.total_gasto }}</td>
+        </ng-container>
+
+        <!-- Total ingreso -->
+        <ng-container matColumnDef="total_ingreso">
+          <th mat-header-cell *matHeaderCellDef> Ingreso Total </th>
+          <td mat-cell *matCellDef="let element">{{ element.total_ingreso }}</td>
+        </ng-container>
+
+        <!-- Total ahorro -->
+        <ng-container matColumnDef="total_ahorro">
+          <th mat-header-cell *matHeaderCellDef> Ahorro Total </th>
+          <td mat-cell *matCellDef="let element">{{ element.total_ahorro }}</td>
+        </ng-container>
+
+        <!-- Balance -->
+        <ng-container matColumnDef="balance">
+          <th mat-header-cell *matHeaderCellDef> Balance </th>
+          <td mat-cell *matCellDef="let element">{{ element.balance }}</td>
+        </ng-container>
+
+        <!-- Usuario -->
+        <ng-container matColumnDef="usuario">
+          <th mat-header-cell *matHeaderCellDef> Usuario </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.usuario?.nombre }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+
+    </mat-card-content>
+  </mat-card>
+</div>
+<div class="title-container">
+
+    <div style="text-align: center" class="title"><h2>Reporte Balance por mes</h2>
+   
+    </div>
+   
+   
+   
+    @if(hasData==true){
+   
+     <div style="text-align: center" class="chart-container">
+   
+      <canvas
+   
+       baseChart
+   
+       [datasets]="barChartData"
+   
+       [labels]="barChartLabels"
+   
+       [options]="barChartOptions"
+   
+       [legend]="barChartLegend"
+   
+       [type]="barChartType"
+   
+      ></canvas>
+   
+     </div>
+   
+    }
+   
+   
+   
+    @if(hasData==false){
+   
+     <div class="no-data">
+   
+      <mat-icon class="no-data-icon">info_outline</mat-icon>
+   
+      <p class="no-data-message">No hay datos disponibles para mostrar.</p>
+   
+     </div>
+   
+    }
+   
+   </div>

@@ -1,0 +1,41 @@
+<div class="container">
+  <mat-card class="insert-card">
+    <mat-card-content>
+      <mat-card-title style="text-align: center; margin: 5%;">
+        <h2>{{ edicion ? 'Editar Impuesto Operacion' : 'Registrar Impuesto Operacion' }}</h2>
+      </mat-card-title>
+
+      <div style="text-align: center; margin: 5%;">
+        <form [formGroup]="form" (ngSubmit)="aceptar()" class="form-column">
+
+          <mat-form-field *ngIf="edicion" appearance="outline" class="custom-field">
+            <mat-label>ID</mat-label>
+            <input matInput formControlName="codigo" />
+            <mat-error *ngIf="form.get('codigo')?.hasError('required')">Ingrese id</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="custom-field">
+            <mat-label>Impuesto</mat-label>
+            <mat-select formControlName="impuesto">
+              <mat-option *ngFor="let a of listaImpuesto" [value]="a.idImpuesto">{{ a.tipo }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="custom-field">
+            <mat-label>Operacion</mat-label>
+            <mat-select formControlName="operacion">
+              <mat-option *ngFor="let a of listaOperacion" [value]="a.idOperacion">{{ a.categoria }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div>
+            <button mat-raised-button color="primary" class="custom-button">
+              {{ edicion ? 'Actualizar' : 'Registrar' }}
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,22 @@
+
+ .image {
+  width: 200px;
+  height: auto;
+}
+
+ .text p {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+  text-align: center;
+  max-width: 300px;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .container {
+    flex-direction: column;      /* Uno debajo de otro */
+    justify-content: center;
+    gap: 40px;
+  }
+}

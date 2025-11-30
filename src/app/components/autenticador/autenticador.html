@@ -1,0 +1,38 @@
+
+<div class="page-background">
+  <mat-card class="login-card">
+    <mat-card-content>
+      <div class="container">
+        <div style="margin-bottom: 15px">
+          <img src="/assets/img/logocortado.png" alt="Logo de la empresa" style="width: 120px" />
+        </div>
+
+        <h2 style="color: #4158a6">Iniciar sesión</h2>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Correo</mat-label>
+          <input matInput placeholder="Username" [(ngModel)]="correo" />
+        </mat-form-field>
+
+        <br />
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Contrasenia</mat-label>
+          <input type="password" matInput placeholder="Password" [(ngModel)]="password" />
+        </mat-form-field>
+
+        <br />
+        <div class="button-group">
+          <button mat-raised-button color="warn" class="custom-button" (click)="cerrar()">
+            Regresar
+          </button>
+
+          <button mat-raised-button color="primary" class="custom-button" (click)="login()">
+            Ingresar
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+

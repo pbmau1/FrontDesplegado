@@ -1,0 +1,87 @@
+/* Contenedor principal */
+.card-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* Card estilo elegante */
+mat-card {
+  padding: 25px;
+  border-radius: 20px;
+  background: white;
+
+  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.08),
+    0px 3px 10px rgba(0, 0, 0, 0.05);
+
+  border: 1px solid #e6e6e6;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+mat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* Header del card */
+mat-card-header {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+mat-card-title {
+  font-weight: 600;
+  font-size: 35px;
+  color: #000000;
+  margin-bottom: 30px
+}
+
+mat-card-subtitle {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Formulario */
+.form-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+mat-form-field {
+  width: 280px;
+}
+
+/* Botón */
+button[mat-raised-button] {
+  width: 30%;
+  background: #ff8343;
+  color: white;
+  padding: 12px 0;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+/* Gráfico */
+.chart-container {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Mensaje de "sin datos" */
+.no-data {
+  text-align: center;
+  margin-top: 25px;
+  color: #888;
+}
+
+.no-data mat-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: #ff8343;
+}

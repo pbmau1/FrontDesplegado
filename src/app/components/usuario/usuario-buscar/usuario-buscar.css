@@ -1,0 +1,78 @@
+.container {
+    width: 30%;
+    margin: 40px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.container h2 {
+    font-size: 35px;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.card-container {
+    padding: 20px;
+    max-width: 450px;    
+    margin: 0 auto;       
+    border-radius: 14px;
+}
+
+.title-center {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;  
+    justify-content: center;
+    align-items: center;     
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.custom-field {
+    width: 260px;
+}
+
+.button-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.btn-buscar {
+    background-color: #ff7f32 !important;
+    color: white !important;
+    padding: 10px 9px !important;
+    border-radius: 6px !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.btn-limpiar {
+    background-color: #ff7f32 !important;
+    color: white !important;
+    padding: 10px 9px !important;
+    border-radius: 6px !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.mensaje {
+    color: #d9534f;
+    margin-top: 10px;
+}

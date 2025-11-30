@@ -1,0 +1,62 @@
+/* Contenedor principal */
+.container {
+    width: 90%;
+    margin: 40px auto;
+}
+
+.card-container {
+    padding: 25px;
+    max-width: 800px;
+    border-radius: 14px;
+    margin: 40px auto; 
+}
+
+.title-center {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.custom-field {
+    width: 260px; 
+}
+
+
+/* Mat-form-field */
+mat-form-field {
+  width: 30%;
+  margin-bottom: 20px;
+}
+
+/* Mensaje de error */
+div[ng-reflect-ng-if] {
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+/* Tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th.mat-header-cell {
+  background-color: #4158A6;
+  color: #fff;
+  font-weight: 600;
+}
+
+td.mat-cell {
+  padding: 8px 12px;
+}
+
+tr.mat-row:hover {
+  background-color: rgba(65, 88, 166, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  table, th, td {
+    font-size: 14px;
+  }
+}

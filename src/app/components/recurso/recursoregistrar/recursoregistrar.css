@@ -1,0 +1,50 @@
+
+.container {
+    width: 60%;
+    margin: 40px auto;
+    padding: 30px 40px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.container h2 {
+    font-size: 35px;
+    font-weight: 700;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 25px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px 40px;  
+    justify-content: center;
+    align-items: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.botones {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+button[mat-raised-button] {
+    background-color: #ff8343;
+    color: white;
+    font-weight: 600;
+    padding: 10px 35px;
+    border-radius: 8px;
+    transition: 0.25s ease;
+}
+
+button[mat-raised-button]:hover {
+    background-color: #ff6b1f;
+}

@@ -1,0 +1,33 @@
+.container {
+    width: 90%;
+    margin: 40px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+
+button[mat-icon-button] {
+    background-color: #ff8343;
+    color: white;
+    border-radius: 6px;
+    transition: 0.25s ease;
+}
+
+button[mat-icon-button]:hover {
+    background-color: #ff8343;
+}
+
+
+@media (max-width: 768px) {
+
+    button[matButton] [matIconButton] {
+
+        font-size: 0.7rem;
+
+        padding: 3px 8px;
+
+    }
+
+}

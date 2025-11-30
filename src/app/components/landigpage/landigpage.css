@@ -1,0 +1,463 @@
+/* FINAL OPTIMIZED RESPONSIVE CSS - COMPACT, BALANCED SIZES, CLEANED */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+
+/* ========================= */
+/* HEADER */
+/* ========================= */
+header {
+  width: 100%;
+  height: 60px;
+  background: #2B3D49;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  padding: 0 0rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+header .logo img {
+  width: 55px;
+  
+}
+header .navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 2.5rem;
+  
+}
+header .navbar ul li a {
+  color: #fff;
+  font-size: 1.4rem;
+  transition: .23s;
+  
+}
+header .navbar ul li a:hover {
+  color: #FF8343;
+}
+header .fa-bars {
+  font-size: 3rem;
+  color: #FF8343;
+  display: none;
+}
+
+.navbar ul li a {
+    text-decoration: none !important;
+}
+
+/* ========================= */
+/* HOME */
+/* ========================= */
+.home {
+  min-height: 100vh;
+  padding-top: 8rem;
+  background: linear-gradient(rgba(16,16,16,0.6), rgba(16,16,16,0.6)),
+  url('/assets/img/fondo_landing.jpg') center/cover no-repeat fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+}
+.home h1 {
+  font-size: 4rem;
+  font-weight: 600;
+  margin-bottom: 4rem;
+}
+.home p {
+  font-size: 1.8rem;
+  max-width: 650px;
+  margin: 0 auto 2rem;
+  line-height: 1.3;
+}
+#ali {
+  margin-top: 2rem;
+  width: 20rem;
+  padding: 1.2rem 0;
+  border: none;
+  border-radius: 1rem;
+  background: #179BAE;
+  font-size: 1.8rem;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 10px #0f6d7a;
+  transition: .25s;
+}
+#ali:hover {
+  transform: scale(1.03);
+}
+
+/* ========================= */
+/* DOWNLOAD */
+/* ========================= */
+/* Marco general */
+.download {
+  width: 90%;
+  max-width: 1200px;        /* Evita que se haga gigante */
+  margin: 5rem auto;
+  padding: 2.5rem;
+  background: #ffffff;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+  overflow: hidden;         /* Evita scroll horizontal */
+}
+
+/* Imagen grande de la izquierda */
+.download > img {
+  width: 48%;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+/* Caja con texto y botones */
+.download .content-box {
+  width: 50%;
+  background: #0097A7;
+  color: #fff;
+  padding: 2.5rem;
+  border-radius: 16px;
+}
+
+/* Texto */
+.download h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.download p {
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+/* Imagen de Google Play */
+.download .content-box img {
+  width: 180px;
+  margin-top: 1.5rem;
+}
+
+/* ========================= */
+/* NOSOTROS */
+/* ========================= */
+.nosotros {
+  width: 90%;
+  margin: 6rem auto;
+  text-align: center;
+}
+.nosotros h2 {
+  font-size: 3rem;
+  color: #0A2B59;
+  margin-bottom: 1rem;
+}
+.nosotros p {
+  font-size: 1.7rem;
+  color: #0A2B59;
+  margin-bottom: 4rem;
+}
+
+.nosotros .box img {
+  width: 600px;
+  height: auto;
+  border-radius: 20%;
+  margin-bottom: 1rem;
+  margin: 0;
+  text-align: center;
+  max-width: 80%;
+}
+.box-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  line-height: 1.3;
+}
+.box {
+  width: 32rem;
+  min-height: 30rem;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,.2);
+  transition: .3s;
+}
+.box:hover {
+  transform: scale(1.03);
+}
+
+/* ========================= */
+/* SERVICIOS */
+/* ========================= */
+.services {
+  width: 90%;
+  margin: 6rem auto;
+  text-align: center;
+}
+.services h2 {
+  font-size: 3rem;
+  color: #0A2B59;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.services p {
+  font-size: 1.7rem;
+  margin-bottom: 4rem;
+  color: #0A2B59;
+    line-height: 1.2;
+
+}
+
+.services .box img {
+  width: 600px;
+  height: auto;
+  border-radius: 20%;
+  margin-bottom: 1rem;
+  margin: 0;
+  text-align: center;
+  max-width: 80%;
+}
+
+
+/* ========================= */
+/* REVIEWS */
+/* ========================= */
+.review {
+  width: 90%;
+  margin: 6rem auto;
+  text-align: center;
+}
+.review h2 {
+  font-size: 3rem;
+  color: #0A2B59;
+  margin-bottom: 1rem;
+  
+}
+.review p {
+  font-size: 1.7rem;
+  color: #0A2B59;
+  margin-bottom: 3rem;
+  line-height: 1.2;
+
+}
+
+.review .box img {
+  width: 300px;
+  height: auto;
+  border-radius: 20%;
+  margin-bottom: 1rem;
+  margin: 0;
+  text-align: center;
+  max-width: 80%;
+}
+
+/* ========================= */
+/* FAQ */
+/* ========================= */
+.faq{
+  width: 90%;
+  margin: 6rem auto;
+  text-align: center;
+}
+.faq h3 {
+  font-size: 2rem;
+  color: #0A2B59;
+  margin-bottom: 1rem;
+  
+}
+.faq h2 {
+  font-size: 3rem;
+  color: #0A2B59;
+  margin-bottom: 1rem;
+  
+}
+.faq p {
+  font-size: 1.7rem;
+  color: #0A2B59;
+  margin-bottom: 3rem;
+  line-height: 1.2;
+
+}
+.faq-box {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  margin: 1rem auto;
+  width: 85%;
+  transition: .3s;
+}
+.faq-box:hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,.15);
+}
+
+/* ========================= */
+/* CONTACT */
+/* ========================= */
+.contact {
+  width: 90%;
+  margin: 6rem auto;
+  text-align: center;
+}
+.contact h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #0A2B59;
+}
+.contact p {
+  font-size: 1.7rem;
+  color: #0A2B59;
+  margin-bottom: 3rem;
+  line-height: 1.2;
+
+}
+.contact .row {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  margin-top: 4rem;
+}
+.contact .form-container {
+  width: 45rem;
+}
+.contact input,
+.contact textarea {
+  width: 100%;
+  padding: 1.4rem;
+  margin: 1rem 0;
+  border-radius: 1rem;
+  border: 1px solid #ccc;
+  font-size: 1.6rem;
+}
+.contact input[type="submit"] {
+  background: #FF8343;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: .25s;
+}
+.contact input[type="submit"]:hover {
+  transform: scale(1.03);
+}
+
+/* ========================= */
+/* FOOTER */
+/* ========================= */
+
+footer {
+  background: #0A2B59;
+  color: #fff;
+  padding: 4rem 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+footer a {
+  color: #fff;                  /* ❗ Arregla el color púrpura */
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #FF914D;               /* Hover bonito */
+}
+
+.footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 5rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+  text-align: left;
+}
+
+.footer-logo-description {
+  max-width: 350px;
+}
+
+.footer-logo {
+  width: 180px;
+  margin-bottom: 1rem;
+}
+
+.footer-sections ul,
+.footer-social ul {
+  list-style: none;
+  padding: 0;
+}
+
+footer h3 {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  border-bottom: 2px solid #FF914D;
+  display: inline-block;
+  padding-bottom: 0.3rem;
+}
+
+footer ul li {
+  margin-bottom: 0.8rem;
+  font-size: 1.4rem;
+}
+
+.footer-bar {
+  text-align: center;
+  border-top: 1px solid #ffffff50;
+  padding-top: 1.5rem;
+  font-size: 1.4rem;
+}
+
+.footer-bar a {
+  margin: 0 1rem;
+}
+
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+@media (max-width: 1024px) {
+  html { font-size: 54%; }
+  header .navbar { display: none; }
+  header .fa-bars { display: block; }
+  .download,
+  .nosotros,
+  .services,
+  .review,
+  .contact {
+    width: 95%;
+  }
+}
+
+@media (max-width: 768px) {
+  html { font-size: 52%; }
+  .download {
+    flex-direction: column;
+    text-align: center;
+  }
+  .box {
+    width: 100%;
+  }
+  .review .box {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  html { font-size: 50%; }
+  header {
+    padding: 0 2rem;
+  }
+  #ali {
+    width: 18rem;
+  }
+}

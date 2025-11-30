@@ -1,0 +1,149 @@
+<div class="container">
+  @if(verificar()){
+  <mat-toolbar class="custom-toolbar">
+    <!-- ADMIN -->
+    @if(isAdmin()){
+    <button mat-button aria-label="menuUsuario" [matMenuTriggerFor]="menuUsuario">
+      <mat-icon> menu </mat-icon>Usuarios
+    </button>
+
+    <button mat-button aria-label="menuRecursos" [matMenuTriggerFor]="menuRecursos">
+      <mat-icon> menu </mat-icon>Recursos
+    </button>
+
+    <button mat-button aria-label="menuRoles" [matMenuTriggerFor]="menuRoles">
+      <mat-icon> menu </mat-icon>Roles
+    </button>
+
+    <button mat-button aria-label="menuImpuesto" [matMenuTriggerFor]="menuImpuesto">
+      <mat-icon> menu </mat-icon>Impuesto
+    </button>
+
+    <button mat-button aria-label="menuReporteADMIN" [matMenuTriggerFor]="menuReporteADMIN">
+      <mat-icon> menu </mat-icon>Reportes
+    </button>
+
+    }
+
+    <!-- CLIENT -->
+    @if(isClient()){
+    <button mat-button [routerLink]="['consejos']" class="btn-rojo">
+      <mat-icon>home</mat-icon>Home
+    </button>
+
+    <button mat-button aria-label="menuOperacion" [matMenuTriggerFor]="menuOperacion">
+      <mat-icon> menu </mat-icon>Operaciones
+    </button>
+
+    <button mat-button aria-label="menuBalance" [matMenuTriggerFor]="menuBalance">
+      <mat-icon> menu </mat-icon>Balance
+    </button>
+
+    <button mat-button aria-label="menuAhorro" [matMenuTriggerFor]="menuAhorro">
+      <mat-icon> menu </mat-icon>Ahorro
+    </button>
+
+    <button mat-button aria-label="menuImpuestoop" [matMenuTriggerFor]="menuImpuestoop">
+      <mat-icon> menu </mat-icon>Impuestos a la operacion
+    </button>
+
+    <button mat-button aria-label="menuRecursoUs" [matMenuTriggerFor]="menuRecursoUs">
+      <mat-icon> menu </mat-icon>Recursos de usuarios
+    </button>
+
+    <button mat-button aria-label="menuReporte" [matMenuTriggerFor]="menuReporte">
+      <mat-icon> menu </mat-icon>Reportes
+    </button>
+
+    }
+
+    <!-- USUARIO -->
+    <button mat-button [matMenuTriggerFor]="menuUsuarioOpciones">
+      <mat-icon>person</mat-icon>Usuario
+    </button>
+  </mat-toolbar>
+  }
+
+  <!-- ADMIN: menú usuarios -->
+  <mat-menu #menuUsuario="matMenu">
+    <button mat-menu-item routerLink="/app/usuariolistar">Listar Usuarios</button>
+    <button mat-menu-item routerLink="/app/buscar">Buscar Usuario</button>
+  </mat-menu>
+
+  <!-- CLIENT: menú operaciones -->
+  <mat-menu #menuOperacion="matMenu">
+    <button mat-menu-item routerLink="/app/operacion">Listar Operaciones</button>
+    <button mat-menu-item routerLink="/app/operacion/nuevo">Registrar Operación</button>
+    <button mat-menu-item routerLink="/app/operacion/filtro1">Por categoría</button>
+    <button mat-menu-item routerLink="/app/operacion/filtro2">Por fecha</button>
+  </mat-menu>
+
+  <mat-menu #menuBalance="matMenu">
+    <button mat-menu-item routerLink="/app/balance">Listar Balance</button>
+    <button mat-menu-item routerLink="/app/balance/nuevo">Registrar Balance</button>
+  </mat-menu>
+
+  <mat-menu #menuAhorro="matMenu">
+    <button mat-menu-item routerLink="/app/ahorro">Listar Ahorros</button>
+    <button mat-menu-item routerLink="/app/ahorro/nuevo">Registrar Ahorro</button>
+  </mat-menu>
+
+  <mat-menu #menuRecursos="matMenu">
+    <button mat-menu-item routerLink="/app/recurso">Listar Recursos</button>
+    <button mat-menu-item routerLink="/app/recurso/nuevo">Registrar recurso</button>
+    <button mat-menu-item routerLink="/app/recurso/filtrar-fecha">Filtrar por fecha</button>
+    <button mat-menu-item routerLink="/app/recurso/filtrar-autor">Filtrar por autor</button>
+  </mat-menu>
+
+  <mat-menu #menuRoles="matMenu">
+    <button mat-menu-item routerLink="/app/roles">Listar Roles</button>
+    <button mat-menu-item routerLink="/app/roles/nuevo">Registrar Rol</button>
+  </mat-menu>
+
+  <mat-menu #menuImpuesto="matMenu">
+    <button mat-menu-item routerLink="/app/Impuesto">Listar mpuesto</button>
+    <button mat-menu-item routerLink="/app/impuesto/nuevo">registrar impuestos</button>
+  </mat-menu>
+
+  <mat-menu #menuReporte="matMenu">
+    <button mat-menu-item routerLink="/app/listarmes">Balance por mes</button>
+    <button mat-menu-item routerLink="/app/sumaahorros">reporte 4</button>
+    <button mat-menu-item routerLink="/app/impuestomonto">Impuesto x ingresos</button>
+  </mat-menu>
+
+  <mat-menu #menuReporteADMIN="matMenu">
+    <button mat-menu-item routerLink="/app/sumaingresos">Suma de ingresos de Usuarios</button>
+    <button mat-menu-item routerLink="/app/sumaxusuario">Ingresos vs Gastos por Usuario</button>
+    <button mat-menu-item routerLink="/app/sumaahorros">Ahorro por usuario</button>
+  </mat-menu>
+
+  <mat-menu #menuImpuestoop="matMenu">
+    <button mat-menu-item routerLink="/app/impuesto-operacion">
+      lista de operaciones con impuestos
+    </button>
+    <button mat-menu-item routerLink="/app/impuesto-operacion/nuevo">
+      registrar impuesto a operacion
+    </button>
+  </mat-menu>
+
+  <mat-menu #menuRecursoUs="matMenu">
+    <button mat-menu-item routerLink="/app/recurso-usuario">Listar Recursos</button>
+    <button mat-menu-item routerLink="/app/recurso-usuario/nuevo">Registrar recurso</button>
+  </mat-menu>
+  <!-- OPCIONES DEL USUARIO -->
+  <mat-menu #menuUsuarioOpciones="matMenu">
+    <button mat-menu-item routerLink="/app/perfil">
+      <mat-icon>edit</mat-icon>
+      <span>Mi Perfil</span>
+    </button>
+    <button mat-menu-item routerLink="/login" (click)="cerrar()">
+      <mat-icon>logout</mat-icon>
+      <span>Cerrar sesión</span>
+    </button>
+    <button mat-menu-item disabled>
+      Rol: <strong>{{ role }}</strong>
+    </button>
+  </mat-menu>
+</div>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,51 @@
+<div class="page-background">
+  <mat-card class="login-card">
+    <mat-card-content>
+      <div class="container">
+        <mat-card-title style="text-align: center; margin: 5%">
+          <h2>Registro de Roles</h2>
+        </mat-card-title>
+
+        <div style="text-align: center; margin: 5%">
+          <form [formGroup]="form" (submit)="aceptar()">
+            @if(edicion){
+            <mat-form-field appearance="outline" class="custom-field">
+              <mat-label>ID</mat-label>
+              <input matInput formControlName="idrol" />
+              <mat-error> @if (form.get('idrol')?.hasError('required')) { Ingrese id} </mat-error>
+            </mat-form-field>
+
+            }
+            <mat-form-field appearance="outline" class="custom-field">
+              <mat-label>Rol</mat-label>
+              <mat-select formControlName="rol" placeholder="Seleccione un rol">
+                <mat-option *ngFor="let r of roles" [value]="r">
+                  {{ r }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.get('rol')?.hasError('required')">
+                El rol es obligatorio
+              </mat-error>
+            </mat-form-field>
+
+            <br />
+
+            <mat-form-field appearance="outline" class="custom-field">
+              <mat-label>Usuario</mat-label>
+              <mat-select formControlName="usuarioId">
+                <mat-option *ngFor="let u of usuarios" [value]="u.idUsuario">
+                  {{ u.idUsuario  }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <br />
+            <button mat-raised-button color="primary" class="custom-button" (click)="aceptar()">
+                Ingresar
+              </button>
+          </form>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

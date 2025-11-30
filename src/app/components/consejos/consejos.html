@@ -1,0 +1,39 @@
+<div class="contenedor">
+  <h2>📰 Noticias Financieras del Día</h2>
+
+  <!-- Loading -->
+  <div *ngIf="cargando" class="loading">
+    Cargando noticias...
+  </div>
+
+  <!-- Sin resultados -->
+  <div *ngIf="!cargando && noticias.length === 0">
+    <p>No se encontraron noticias.</p>
+  </div>
+
+  <!-- Cards -->
+  <div class="cards" *ngIf="noticias.length > 0">
+    <mat-card *ngFor="let n of noticias" class="card-noticia">
+      
+      <img mat-card-image *ngIf="n.urlToImage" [src]="n.urlToImage" alt="Imagen noticia">
+
+      <mat-card-header>
+        <mat-card-title>{{ n.title }}</mat-card-title>
+        <mat-card-subtitle>
+          {{ n.source?.name }} • {{ n.publishedAt | date:'mediumDate' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>{{ n.description || 'Sin descripción disponible.' }}</p>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <a mat-button color="primary" [href]="n.url" target="_blank">
+          Leer más →
+        </a>
+      </mat-card-actions>
+
+    </mat-card>
+  </div>
+</div>

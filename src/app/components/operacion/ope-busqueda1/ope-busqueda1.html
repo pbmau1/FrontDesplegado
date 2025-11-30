@@ -1,0 +1,48 @@
+<mat-card class="card-container">
+<div [formGroup]="form">
+  <mat-card-title class="title-center">
+  <h2>Reporte por Categoría</h2>
+  </mat-card-title>
+
+  <mat-form-field appearance="outline" class="custom-field">
+    <mat-label>Seleccione Categoría</mat-label>
+    <mat-select formControlName="categoria">
+      <mat-option value="">-- Seleccione --</mat-option>
+      <mat-option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <div *ngIf="mensaje" style="color: red;">{{ mensaje }}</div>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="idOperacion">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let op">{{ op.idOperacion }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+      <td mat-cell *matCellDef="let op">{{ op.usuario.nombre }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="categoria">
+      <th mat-header-cell *matHeaderCellDef>Categoría</th>
+      <td mat-cell *matCellDef="let op">{{ op.categoria }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="montoOperacion">
+      <th mat-header-cell *matHeaderCellDef>Monto</th>
+      <td mat-cell *matCellDef="let op">{{ op.monto }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell *matHeaderCellDef>Fecha</th>
+      <td mat-cell *matCellDef="let op">{{ op.fecha | date:'yyyy-MM-dd' }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+</mat-card>

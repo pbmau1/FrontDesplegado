@@ -1,0 +1,50 @@
+<div class="container">
+    <mat-card class="rusuario-card">
+
+        <mat-card-title style="text-align: center; margin: 5%">
+            <h2>{{ edicion ? 'Editar recurso usuario' : 'Registrar recurso usuario' }}</h2>
+        </mat-card-title>
+
+        <mat-card-content>
+            <form [formGroup]="form" (ngSubmit)="aceptar()" style="text-align: center; margin: 5%;">
+
+                <!-- ID SOLO PARA EDICIÓN -->
+                <ng-container *ngIf="edicion">
+                    <mat-form-field appearance="outline" class="custom-field">
+                        <mat-label>ID</mat-label>
+                        <input matInput formControlName="idRecursoUsuario" />
+                    </mat-form-field>
+                </ng-container>
+
+                <!-- Usuario -->
+                <mat-form-field appearance="outline" class="custom-field">
+                    <mat-label>Usuario</mat-label>
+                    <mat-select formControlName="usuario">
+                        <mat-option *ngFor="let a of listausuario" [value]="a.idUsuario">
+                            {{ a.idUsuario }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <br />
+
+                <!-- Recurso -->
+                <mat-form-field appearance="outline" class="custom-field">
+                    <mat-label>Recurso</mat-label>
+                    <mat-select formControlName="recurso">
+                        <mat-option *ngFor="let a of listarecurso" [value]="a.idRecurso">
+                            {{ a.idRecurso }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div>
+                    <button mat-raised-button color="primary" class="custom-button" type="submit">
+                        {{ edicion ? 'Actualizar' : 'Registrar' }}
+                    </button>
+                </div>
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

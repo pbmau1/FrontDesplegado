@@ -1,0 +1,78 @@
+<div class="card-container">
+
+  <mat-card>
+
+    <mat-card-header>
+      <mat-card-title>Reporte de Ahorros por Período</mat-card-title>
+      <mat-card-subtitle>
+        Selecciona un rango de fechas para ver los ahorros registrados.
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <div class="filtros">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha Inicio</mat-label>
+          <input matInput type="date" [(ngModel)]="fechaInicio">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha Fin</mat-label>
+          <input matInput type="date" [(ngModel)]="fechaFin">
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="buscar()">
+          Buscar
+        </button>
+
+      </div>
+
+      <table mat-table [dataSource]="ahorros" class="mat-elevation-z8 tabla" *ngIf="ahorros.length > 0">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let a">{{ a.idAhorro }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="objetivo">
+          <th mat-header-cell *matHeaderCellDef>Objetivo</th>
+          <td mat-cell *matCellDef="let a">{{ a.objetivo }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="monto">
+          <th mat-header-cell *matHeaderCellDef>Monto</th>
+          <td mat-cell *matCellDef="let a">S/ {{ a.monto_actual }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="fecha_inicio">
+          <th mat-header-cell *matHeaderCellDef>Inicio</th>
+          <td mat-cell *matCellDef="let a">{{ a.fecha_inicio }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="fecha_limite">
+          <th mat-header-cell *matHeaderCellDef>Límite</th>
+          <td mat-cell *matCellDef="let a">{{ a.fecha_limite }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="usuario">
+          <th mat-header-cell *matHeaderCellDef>Usuario</th>
+          <td mat-cell *matCellDef="let a">{{ a.usuario?.nombre }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+
+      <div class="no-data" *ngIf="ahorros.length === 0">
+        <mat-icon>info_outline</mat-icon>
+        <p>No hay resultados para el período seleccionado.</p>
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

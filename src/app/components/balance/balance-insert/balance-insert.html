@@ -1,0 +1,71 @@
+<div class="container">
+<mat-card class="insert-card" style=" padding: 10px;">
+  <mat-card-content>
+    <div class="form-container mat-elevation-z8">
+      <div style="text-align: center; margin: 5%">
+        <h2>{{ edicion ? 'Editar Balance' : 'Registrar Balance' }}</h2>
+      </div>
+
+      <div style="text-align: center; margin: 5%">
+        <form [formGroup]="form" (ngSubmit)="aceptar()">
+          @if(edicion){
+          <mat-form-field>
+            <mat-label>ID</mat-label>
+            <input matInput formControlName="codigo" />
+            <mat-error *ngIf="form.get('codigo')?.hasError('required')"> Ingrese id </mat-error>
+          </mat-form-field>
+          }
+
+          <mat-form-field appearance="outline">
+            <mat-label>Mes</mat-label>
+            <mat-select formControlName="mes">
+              <mat-option *ngFor="let m of meses" [value]="m.value">
+                {{ m.viewValue }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('mes')?.hasError('required')">
+              El campo mes es obligatorio.
+            </mat-error>
+          </mat-form-field>
+          <br />
+
+          <mat-form-field appearance="outline">
+            <mat-label>Año</mat-label>
+            <input matInput type="number" formControlName="anio" />
+            <mat-error *ngIf="form.get('anio')?.hasError('required')">
+              Este campo es obligatorio
+            </mat-error>
+            <mat-error *ngIf="form.get('anio')?.hasError('min')">
+              Ingrese un año desde 2025
+            </mat-error>
+            <mat-error *ngIf="form.get('anio')?.hasError('maxlength')">
+              Máximo de 4 dígitos
+            </mat-error>
+          </mat-form-field>
+          <br />
+
+          <mat-form-field appearance="outline">
+            <mat-label>Usuario</mat-label>
+            <mat-select formControlName="fk">
+              <mat-option *ngFor="let a of listaUsuario" [value]="a.idUsuario">
+                {{ a.nombre }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('fk')?.hasError('required')">
+              Seleccione un usuario
+            </mat-error>
+          </mat-form-field>
+          <br />
+
+          <div>
+            <button mat-raised-button color="primary">
+              {{ edicion ? 'Actualizar' : 'Registrar' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+</div >
+

@@ -1,0 +1,57 @@
+<div class="card-wrapper">
+  <mat-card class="card-form">
+    <mat-card-title>
+      <h2>{{ edicion ? 'Editar Ahorro' : 'Registrar Ahorro' }}</h2>
+
+      <form [formGroup]="form" (submit)="aceptar()">
+        
+        @if(edicion){
+        <mat-form-field appearance="outline">
+          <mat-label>ID</mat-label>
+          <input matInput formControlName="codigo" />
+          <mat-error *ngIf="form.get('codigo')?.hasError('required')">Ingrese ID</mat-error>
+        </mat-form-field>
+        }
+
+        <mat-form-field appearance="outline">
+          <mat-label>Objetivo</mat-label>
+          <input matInput formControlName="objetivo" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Monto</mat-label>
+          <input matInput type="number" formControlName="monto_actual" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha Inicio</mat-label>
+          <input matInput [matDatepicker]="pickerInicio" formControlName="fecha_inicio" [min]="hoy" />
+          <mat-datepicker-toggle matIconSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+          <mat-datepicker #pickerInicio></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha Límite</mat-label>
+          <input matInput [matDatepicker]="pickerLimite" formControlName="fecha_limite" [min]="hoy" />
+          <mat-datepicker-toggle matIconSuffix [for]="pickerLimite"></mat-datepicker-toggle>
+          <mat-datepicker #pickerLimite></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Usuario</mat-label>
+          <mat-select formControlName="fk">
+            @for (a of listaUsuario; track a) {
+            <mat-option [value]="a.idUsuario">{{ a.nombre }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button class="btn-submit">
+          {{ edicion ? 'Actualizar' : 'Registrar' }}
+        </button>
+
+      </form>
+
+    </mat-card-title>
+  </mat-card>
+</div>

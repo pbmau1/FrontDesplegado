@@ -1,0 +1,99 @@
+/* Contenedor general */
+.card-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* Estilo del Card */
+mat-card {
+  padding: 25px;
+  border-radius: 20px;
+  background: white;
+  border: 1px solid #e6e6e6;
+
+  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.08),
+    0px 3px 10px rgba(0, 0, 0, 0.05);
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+mat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 10px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* Encabezado del card */
+mat-card-header {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+mat-card-title {
+  font-size: 35px;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 30px
+}
+
+mat-card-subtitle {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Filtros */
+.filtros {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  margin: 25px 0;
+}
+
+mat-form-field {
+  width: 230px;
+}
+
+button[mat-raised-button] {
+  width: 20%;
+  background: #ff8343;
+  color: white;
+  padding: 12px 0;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+/* Tabla */
+.tabla {
+  width: 100%;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+th {
+  font-weight: 600;
+}
+
+td,
+th {
+  padding: 10px !important;
+}
+
+mat-header-row {
+  background: #f7f7f7;
+}
+
+/* No data */
+.no-data {
+  text-align: center;
+  margin-top: 30px;
+  color: #888;
+}
+
+.no-data mat-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: #ff8343;
+}
