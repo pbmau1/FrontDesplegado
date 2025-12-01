@@ -7,29 +7,44 @@ import { JwtRequestDTO } from '../models/JwtRequestDTO';
   providedIn: 'root',
 })
 export class LoginService {
+  private apiUrl = 'http://localhost:8080/login';
+
   constructor(private http: HttpClient) {}
+
+  // LOGIN llama al backend
   login(request: JwtRequestDTO) {
-    return this.http.post('http://localhost:8080/login', request);
+    return this.http.post(this.apiUrl, request);
   }
+
+  // Verifica si hay token
   verificar() {
     let token = sessionStorage.getItem('token');
     return token != null;
   }
+
   showRole() {
-    
     let token = sessionStorage.getItem('token');
-    console.log("TOKEN EN STORAGE:", token); // <-- agrega esto
+    if (!token) return [];
 
-    if (!token) {
-    
-      return null; 
-    }
     const helper = new JwtHelperService();
-    const decodedToken = helper.decodeToken(token);
-    console.log("TOKEN DECODIFICADO:", decodedToken); // <-- agrega esto también
+    const decoded = helper.decodeToken(token);
 
-    return decodedToken?.roles; // devuelve lista o null
-    
+    let roles = decoded?.roles;
+
+    if (!roles) return [];
+
+    if (typeof roles === 'string') {
+      return [roles];
+    }
+
+    if (Array.isArray(roles) && typeof roles[0] === 'string') {
+      return roles;
+    }
+
+    if (Array.isArray(roles)) {
+      return roles.map((r: any) => r.rol || r.authority || r.name || r.nombre || r.role || r);
+    }
+
+    return [];
   }
-  
 }

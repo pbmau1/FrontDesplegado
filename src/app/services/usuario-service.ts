@@ -10,7 +10,6 @@ const base_url = environment.base;
   providedIn: 'root',
 })
 export class UsuarioService implements OnInit {
-
   private url = `${base_url}/usuarios`;
   private listaCambio = new Subject<Usuario[]>();
 
@@ -23,7 +22,7 @@ export class UsuarioService implements OnInit {
   }
 
   insert(a: Usuario): Observable<any> {
-    return this.http.post(`${this.url}/register`, a, { responseType: 'text', observe: 'response' });
+    return this.http.post(`${this.url}/register`, a, { responseType: 'text' });
   }
 
   setList(listaNueva: Usuario[]) {
@@ -38,21 +37,23 @@ export class UsuarioService implements OnInit {
     return this.http.get<Usuario>(`${this.url}/listar/${id}`);
   }
 
-  update(u: Usuario) {
-    return this.http.put(`${this.url}/update`, u, { responseType: 'text' });
+  //  ADMIN / CLIENT  actualizar usuario cualquiera (requiere ID)
+  update(id: number, usuario: Usuario) {
+    return this.http.put(`${this.url}/update/${id}`, usuario, { responseType: 'text' });
   }
 
+  // ADMIN / CLIENT  eliminar usuario cualquiera (requiere ID)
   delete(id: number) {
     return this.http.delete(`${this.url}/delete/${id}`, { responseType: 'text' });
   }
 
-  // 🔵 NUEVO: obtener mi usuario logueado
+  //  CLIENT  obtener su usuario del token
   getMiUsuario(): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.url}/me`);
   }
 
-  // 🔵 NUEVO: actualizar mi usuario
-  updateMiUsuario(usuario: Usuario): Observable<any> {
+  //  CLIENT  actualizar su propio usuario
+  updateMiUsuario(usuario: Usuario) {
     return this.http.put(`${this.url}/me`, usuario, { responseType: 'text' });
   }
 }

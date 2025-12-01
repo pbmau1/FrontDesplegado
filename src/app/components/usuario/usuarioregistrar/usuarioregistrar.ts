@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
   ReactiveFormsModule,
@@ -11,12 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Usuario } from '../../../models/Usuario';
 import { UsuarioService } from '../../../services/usuario-service';
-import {
-  ActivatedRoute,
-  Params,
-  Router,
-  RouterLink,
-} from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 
@@ -37,7 +31,7 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class usuarioregistrar implements OnInit {
 
-  form: FormGroup = new FormGroup({});
+  form!: FormGroup;
   ur: Usuario = new Usuario();
   mensajeError: string = '';
   edicion: boolean = false;
@@ -52,7 +46,7 @@ export class usuarioregistrar implements OnInit {
 
   ngOnInit(): void {
 
-    // Inicializar formulario
+    // FORMULARIO
     this.form = this.formBuilder.group({
       codigo: [''],
       nombre: ['', Validators.required],
@@ -60,18 +54,13 @@ export class usuarioregistrar implements OnInit {
       contrasenia: ['', [Validators.required, Validators.minLength(10)]],
     });
 
-    // ============================
-    // 🔵 Caso PERFIL DEL USUARIO
-    // ============================
+
     if (this.router.url === '/app/perfil') {
-      
       this.edicion = true;
 
-      // Obtener correo desde token (como ya lo haces en LoginService)
       const token = sessionStorage.getItem('token');
       const correo = JSON.parse(atob(token!.split('.')[1])).sub;
 
-      // Buscar el usuario con ese correo
       this.uS.list().subscribe(usuarios => {
         const encontrado = usuarios.find(u => u.correo === correo);
 
@@ -84,9 +73,7 @@ export class usuarioregistrar implements OnInit {
       return;
     }
 
-    // ============================
-    // 🔵 Caso EDITAR ADMIN (Ya funcionaba)
-    // ============================
+
     this.route.params.subscribe((data: Params) => {
       this.id = data['id'];
       this.edicion = this.id != null;
@@ -95,7 +82,6 @@ export class usuarioregistrar implements OnInit {
         this.cargarUsuarioPorId(this.id);
       }
     });
-
   }
 
   cargarUsuarioPorId(id: number) {
@@ -108,39 +94,42 @@ export class usuarioregistrar implements OnInit {
         correo: data.correo
       });
 
-      // No pedir contraseña en edición
       this.form.get('contrasenia')?.clearValidators();
       this.form.get('contrasenia')?.updateValueAndValidity();
     });
   }
 
   aceptar(): void {
-    if (this.form.valid) {
-      this.ur.idUsuario = this.form.value.codigo;
-      this.ur.nombre = this.form.value.nombre;
-      this.ur.correo = this.form.value.correo;
-      this.ur.contrasenia = this.form.value.contrasenia;
+    if (!this.form.valid) return;
 
-      // EDICIÓN
-      if (this.edicion) {
-        this.uS.update(this.ur).subscribe(() => {
-          this.router.navigate(['/app']);
+
+    if (this.edicion) {
+
+      if (this.router.url === '/app/perfil') {
+        this.uS.updateMiUsuario(this.form.value).subscribe(() => {
+          this.router.navigate(['/app/perfil']);
         });
         return;
       }
 
-      // REGISTRO
-      this.uS.insert(this.ur).subscribe({
-        next: () => this.router.navigate(['login']),
-        error: (error) => {
-          if (error.status === 409 || error.status === 400) {
-            this.mensajeError = ' El correo ya se encuentra registrado.';
-          } else {
-            this.mensajeError = ' Error al registrar usuario.';
-          }
-        },
+
+      this.uS.update(this.id, this.form.value).subscribe(() => {
+        this.router.navigate(['/app/usuariolistar']);
       });
+      return;
     }
+
+
+    this.uS.insert(this.form.value).subscribe({
+      next: () => this.router.navigate(['login']),
+      error: (error) => {
+        if (error.status === 409 || error.status === 400) {
+          this.mensajeError = ' El correo ya se encuentra registrado.';
+        } else {
+          this.mensajeError = ' Error al registrar usuario.';
+        }
+      },
+    });
   }
 
   cerrar() {

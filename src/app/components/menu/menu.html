@@ -132,7 +132,7 @@
   </mat-menu>
   <!-- OPCIONES DEL USUARIO -->
   <mat-menu #menuUsuarioOpciones="matMenu">
-    <button mat-menu-item routerLink="/app/perfil">
+    <button mat-menu-item [routerLink]="['/app/perfil']">
       <mat-icon>edit</mat-icon>
       <span>Mi Perfil</span>
     </button>

@@ -1,6 +1,6 @@
 <!-- podria cambiar en vez de a div para que ya no cuente como boton -->
 <header>
-  <a href="#" class="logo">
+  <a [routerLink]="['/']" class="logo">
     <img src="/assets/img/logocortado.png" alt="Nombre del Logo" />
   </a>
 
@@ -8,14 +8,14 @@
     <ul>
       <li><a href="#home" class="active">Inicio</a></li>
       <li><a href="#nosotros">Nosotros</a></li>
-      <li><a href="#services">Servicios</a></li>
+      <li><a href="#servicios">Servicios</a></li>
       <li><a href="#review">Testimonios</a></li>
       <li><a href="#questions">Preguntas</a></li>
       <li><a href="#contact">Contacto</a></li>
       <li><a href="#download">Descargar</a></li>
-      <li><a routerLink="/login">Inicio sesión</a></li>
-      <li><a>|</a></li>
-      <li><a routerLink="/usuarios/nuevo">Registro</a></li>
+      <li><a [routerLink]="['/login']" (click)="closeMenu()">Inicio sesión</a></li>
+      <li>|</li>
+      <li><a [routerLink]="['/usuarios/nuevo']" (click)="closeMenu()">Registro</a></li>
     </ul>
   </nav>
   <div class="fas fa-bars"></div>

@@ -15,7 +15,7 @@
 
         <div style="text-align: center; margin: 5%">
           <form [formGroup]="form" (submit)="aceptar()">
-            <!-- 🔵 ID SOLO EN EDICIÓN — READONLY Y COLOR PLOMO -->
+            <!-- ID SOLO EN EDICIÓN — READONLY Y COLOR PLOMO -->
             @if(edicion){
             <mat-form-field appearance="outline" class="custom-field">
               <mat-label>ID</mat-label>
@@ -51,7 +51,7 @@
               </mat-error>
             </mat-form-field>
 
-            <!-- ⚠ MENSAJE DE ERROR DE CORREO DUPLICADO -->
+            <!-- MENSAJE DE ERROR DE CORREO DUPLICADO -->
             <div *ngIf="mensajeError" style="color: #d32f2f; font-size: 14px; margin-top: 10px">
               {{ mensajeError }}
             </div>

@@ -1,57 +1,65 @@
-<div class="card-wrapper">
+<div class="container">
   <mat-card class="card-form">
-    <mat-card-title>
-      <h2>{{ edicion ? 'Editar Ahorro' : 'Registrar Ahorro' }}</h2>
+    <mat-card-content>
 
-      <form [formGroup]="form" (submit)="aceptar()">
-        
+      <mat-card-title style="text-align:center;">
+        <h2>{{ edicion ? 'Editar Ahorro' : 'Registrar Ahorro' }}</h2>
+      </mat-card-title>
+
+      <form [formGroup]="form" (ngSubmit)="aceptar()">
+
+        <!-- ID SOLO EN EDICIÓN -->
         @if(edicion){
-        <mat-form-field appearance="outline">
-          <mat-label>ID</mat-label>
-          <input matInput formControlName="codigo" />
-          <mat-error *ngIf="form.get('codigo')?.hasError('required')">Ingrese ID</mat-error>
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>ID</mat-label>
+            <input matInput formControlName="idAhorro" readonly />
+          </mat-form-field>
         }
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="full-width">
           <mat-label>Objetivo</mat-label>
           <input matInput formControlName="objetivo" />
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="full-width">
           <mat-label>Monto</mat-label>
           <input matInput type="number" formControlName="monto_actual" />
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="full-width">
           <mat-label>Fecha Inicio</mat-label>
-          <input matInput [matDatepicker]="pickerInicio" formControlName="fecha_inicio" [min]="hoy" />
-          <mat-datepicker-toggle matIconSuffix [for]="pickerInicio"></mat-datepicker-toggle>
-          <mat-datepicker #pickerInicio></mat-datepicker>
+          <input matInput [matDatepicker]="p1" formControlName="fecha_inicio" />
+          <mat-datepicker-toggle matIconSuffix [for]="p1"></mat-datepicker-toggle>
+          <mat-datepicker #p1></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="full-width">
           <mat-label>Fecha Límite</mat-label>
-          <input matInput [matDatepicker]="pickerLimite" formControlName="fecha_limite" [min]="hoy" />
-          <mat-datepicker-toggle matIconSuffix [for]="pickerLimite"></mat-datepicker-toggle>
-          <mat-datepicker #pickerLimite></mat-datepicker>
+          <input matInput [matDatepicker]="p2" formControlName="fecha_limite" />
+          <mat-datepicker-toggle matIconSuffix [for]="p2"></mat-datepicker-toggle>
+          <mat-datepicker #p2></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Usuario</mat-label>
-          <mat-select formControlName="fk">
-            @for (a of listaUsuario; track a) {
-            <mat-option [value]="a.idUsuario">{{ a.nombre }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+        <!-- SELECT SOLO PARA ADMIN -->
+        @if(esAdmin()){
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Usuario</mat-label>
+            <mat-select formControlName="fk">
+              <mat-option *ngFor="let u of listaUsuarios" [value]="u.idUsuario">
+                {{ u.nombre }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        }
 
-        <button mat-raised-button class="btn-submit">
-          {{ edicion ? 'Actualizar' : 'Registrar' }}
-        </button>
+        <div class="button-container">
+          <button mat-raised-button color="primary">
+            {{ edicion ? 'Actualizar' : 'Registrar' }}
+          </button>
+        </div>
 
       </form>
 
-    </mat-card-title>
+    </mat-card-content>
   </mat-card>
 </div>

@@ -3,35 +3,83 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { environment } from '../../enviroments/enviroment';
 import { operacionModel } from '../models/operacionModel';
-import { operate } from 'rxjs/internal/util/lift';
-import { OperacionComponent } from '../components/operacion/operacion';
 import { sumaxUsuarioDTO } from '../models/sumaporusuario';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OperacionService {
   private url = `${environment.base}/operacion`;
   private listaCambio = new Subject<operacionModel[]>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
+  // LISTAR (admin o client)
   list(): Observable<operacionModel[]> {
-    return this.http.get<operacionModel[]>(`${this.url}/listar`);
+    const token = sessionStorage.getItem('token');
+
+    if (!token) return this.http.get<operacionModel[]>(`${this.url}/me`);
+
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const isAdmin = payload.roles?.includes('ADMIN');
+
+    return isAdmin
+      ? this.http.get<operacionModel[]>(`${this.url}/admin/all`)
+      : this.http.get<operacionModel[]>(`${this.url}/me`);
   }
 
-  insert(data: operacionModel): Observable<string> {
-    return this.http.post(`${this.url}/register`, data, { responseType: 'text' });
+  // LISTAR POR ID
+  listId(id: number): Observable<operacionModel> {
+    return this.http.get<operacionModel>(`${this.url}/listar/${id}`);
   }
 
-  delete(id: number) {
-    return this.http.delete(`${this.url}/delete/${id}`);
+  // INSERTAR
+  insert(op: operacionModel): Observable<string> {
+    const body: any = { ...op };
+    if ('usuario' in body) delete body.usuario;
+
+    return this.http.post(`${this.url}/register`, body, { responseType: 'text' });
   }
 
-  update(data: operacionModel): Observable<string> {
-    return this.http.put(`${this.url}/update`, data, { responseType: 'text' });
+  // UPDATE (CLIENT)
+  updateMiOperacion(op: operacionModel): Observable<string> {
+    return this.http.put(`${this.url}/me/${op.idOperacion}`, op, { responseType: 'text' });
   }
 
+  // UPDATE (ADMIN)
+  updateAdmin(op: operacionModel): Observable<string> {
+    return this.http.put(`${this.url}/admin/${op.idOperacion}`, op, { responseType: 'text' });
+  }
+
+  // DELETE (CLIENT)
+  deleteMiOperacion(id: number): Observable<string> {
+    return this.http.delete(`${this.url}/me/${id}`, { responseType: 'text' });
+  }
+
+  // DELETE (ADMIN)
+  deleteAdmin(id: number): Observable<string> {
+    return this.http.delete(`${this.url}/admin/${id}`, { responseType: 'text' });
+  }
+
+
+
+  findOperacionByCategoria(categoria: string): Observable<operacionModel[]> {
+    return this.http.get<operacionModel[]>(`${this.url}/listarporcategoria`, {
+      params: { categoria },
+    });
+  }
+
+  buscarPorFecha(fecha: string): Observable<operacionModel[]> {
+    return this.http.get<operacionModel[]>(`${this.url}/busquedafecha`, {
+      params: { f: fecha },
+    });
+  }
+
+  getSumaOperacionesPorUsuario(): Observable<sumaxUsuarioDTO[]> {
+    return this.http.get<sumaxUsuarioDTO[]>(`${this.url}/suma-por-usuario`);
+  }
+
+  // LISTA REACTIVA
   setList(lista: operacionModel[]) {
     this.listaCambio.next(lista);
   }
@@ -39,28 +87,4 @@ export class OperacionService {
   getList() {
     return this.listaCambio.asObservable();
   }
-
-  ListId(id:number){
-    return this.http.get<operacionModel>(`${this.url}/listar/${id}`);
-  }
-
-  findOperacionByCategoria(categoria: string): Observable<operacionModel[]> {
-    return this.http.get<operacionModel[]>(`${this.url}/listarporcategoria`, {
-      params: { categoria }
-    });
-  }
-
-  // 🔹 Filtrar por fecha
-  buscarPorFecha(fecha: string): Observable<operacionModel[]> {
-    return this.http.get<operacionModel[]>(`${this.url}/busquedafecha`, {
-      params: { f: fecha }
-    });
-  }
-
-  getSumaOperacionesPorUsuario() {
-  return this.http.get<[sumaxUsuarioDTO]>(`${this.url}/suma-por-usuario`);
-}
-
-
-
 }

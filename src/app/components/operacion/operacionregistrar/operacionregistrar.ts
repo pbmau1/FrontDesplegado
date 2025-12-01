@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
@@ -9,8 +9,8 @@ import { ActivatedRoute, Router, Params } from "@angular/router";
 
 import { operacionModel } from "../../../models/operacionModel";
 import { OperacionService } from "../../../services/operacion-service";
-import { Usuario } from "../../../models/Usuario";
 import { UsuarioService } from "../../../services/usuario-service";
+
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatCardContent, MatCardModule } from "@angular/material/card";
@@ -24,9 +24,12 @@ import { MatCardContent, MatCardModule } from "@angular/material/card";
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    CommonModule, MatDatepickerModule, MatNativeDateModule,
-    MatCardContent,MatCardModule
-],
+    CommonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardContent,
+    MatCardModule
+  ],
   templateUrl: "./operacionregistrar.html",
   styleUrls: ["./operacionregistrar.css"]
 })
@@ -36,7 +39,6 @@ export class OperacionRegistrar implements OnInit {
   operacion: operacionModel = new operacionModel();
   edicion: boolean = false;
   id: number = 0;
-  usuarios: Usuario[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -44,109 +46,114 @@ export class OperacionRegistrar implements OnInit {
     private route: ActivatedRoute,
     private operacionService: OperacionService,
     private usuarioService: UsuarioService
-  ) { }
+  ) {}
+
+
+  esAdmin(): boolean {
+    const token = sessionStorage.getItem('token');
+    if (!token) return false;
+
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.roles?.includes("ADMIN");
+  }
 
   ngOnInit(): void {
 
     this.form = this.fb.group({
-      idoperacion:[''],
+      idOperacion: [''],
       categoria: ['', Validators.required],
       tipo: ['', Validators.required],
       monto: ['', [Validators.required, Validators.min(0)]],
       detalle: [''],
-      fecha: [new Date(), Validators.required],
-      usuarioId: ['', Validators.required]
-    });
-
-    this.usuarioService.list().subscribe(data => {
-      this.usuarios = data;
+      fecha: [new Date(), Validators.required]
     });
 
     this.route.params.subscribe((data: Params) => {
       this.id = data['id'];
-      this.edicion = data['id'] != null;
+      this.edicion = this.id != null;
       this.init();
     });
   }
-  
-categorias: string[] = [
-  "Alimentación",
-  "Transporte",
-  "Viaje",
-  "Compra en general",
-  "Pago servicios",
-  "Pago arbitrios",
-  "Pago predial",
-  "Pago patrimonio vehicular",
-  "Pago alquiler",
-  "Transferencias",
-  "Pago de salario",
-  "Honorarios profesionales",
-  "Salud",
-  "Educación",
-  "Sueldo",
-  "Bonificaciones",
-  "Alquiler de propiedades",
-  "Intereses",
-  "Dividendos"
-];
 
-tipos: string[] = ["Ingreso", "Gasto", "Ahorro"];
+  categorias: string[] = [
+    "Alimentación", "Transporte", "Viaje", "Compra en general",
+    "Pago servicios", "Pago arbitrios", "Pago predial",
+    "Pago patrimonio vehicular", "Pago alquiler", "Transferencias",
+    "Pago de salario", "Honorarios profesionales", "Salud",
+    "Educación", "Sueldo", "Bonificaciones", "Alquiler de propiedades",
+    "Intereses", "Dividendos"
+  ];
 
-minFecha = new Date();
+  tipos: string[] = ["Ingreso", "Gasto", "Ahorro"];
+
+  minFecha = new Date();
 
   aceptar(): void {
-    if (this.form.valid) {
+    if (!this.form.valid) return;
 
-      // Asegurar que exista usuario
-      if (!this.operacion.usuario) {
-        this.operacion.usuario = new Usuario();
-      }
-      this.operacion.idOperacion=this.form.value.idoperacion;
-      this.operacion.categoria = this.form.value.categoria;
-      this.operacion.tipo = this.form.value.tipo;
-      this.operacion.monto = this.form.value.monto;
-      this.operacion.detalle = this.form.value.detalle;
-      this.operacion.fecha = this.form.value.fecha;
-      this.operacion.usuario.idUsuario = this.form.value.usuarioId;
+    this.operacion.idOperacion = this.form.value.idOperacion;
+    this.operacion.categoria = this.form.value.categoria;
+    this.operacion.tipo = this.form.value.tipo;
+    this.operacion.monto = this.form.value.monto;
+    this.operacion.detalle = this.form.value.detalle;
+    this.operacion.fecha = this.form.value.fecha;
 
-      if (this.edicion) {
-        this.operacionService.update(this.operacion)
-          .subscribe((data) => {
-            this.operacionService.list().subscribe((data) => this.operacionService.setList(data));
-            
-          });
+
+    if (this.edicion) {
+
+      if (this.esAdmin()) {
+        this.operacionService.updateAdmin(this.operacion).subscribe(() => {
+          this.recargarLista();
+          this.router.navigate(['/app/operacion']);
+        });
+
       } else {
-        this.operacionService.insert(this.operacion)
-          .subscribe((data) => {
-            this.operacionService.list().subscribe((data) => this.operacionService.setList(data));
-          });
+        this.operacionService.updateMiOperacion(this.operacion).subscribe(() => {
+          this.recargarLista();
+          this.router.navigate(['/app/operacion']);
+        });
       }
-      this.router.navigate(['app/operacion']);
+
+      return;
     }
+
+    // ============================================================
+    // REGISTRO NUEVO
+    // ============================================================
+    this.operacionService.insert(this.operacion).subscribe(() => {
+      this.recargarLista();
+      this.router.navigate(['/app/operacion']);
+    });
   }
 
   cancelar(): void {
-    this.router.navigate(['app/operacion']);
+    this.router.navigate(['/app/operacion']);
+  }
+
+  recargarLista() {
+    this.operacionService.list().subscribe((data) => {
+      this.operacionService.setList(data);
+    });
   }
 
   init() {
-  if (this.edicion) {
-    this.operacionService.ListId(this.id).subscribe((data) => {
-      this.operacion = data;
-      this.form.patchValue({
-        idoperacion:(data.idOperacion),
-        categoria:(data.categoria),
-        tipo:(data.tipo),
-        monto:(data.monto),
-        detalle:(data.detalle),
-        fecha: new Date(data.fecha),
-        usuarioId: (data.usuario?.idUsuario)
-      });
+    if (this.edicion) {
+      
+      this.operacionService.listId(this.id).subscribe((data) => {
 
-      console.log("Formulario cargado:", this.form.value);
-    });
+        this.operacion = data;
+
+        const fechaCorrecta = new Date(data.fecha + 'T00:00:00');
+
+        this.form.patchValue({
+          idOperacion: data.idOperacion,
+          categoria: data.categoria,
+          tipo: data.tipo,
+          monto: data.monto,
+          detalle: data.detalle,
+          fecha: fechaCorrecta
+        });
+      });
+    }
   }
 }
-}
-

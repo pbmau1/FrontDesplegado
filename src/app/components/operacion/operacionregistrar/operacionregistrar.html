@@ -8,8 +8,7 @@
         <form [formGroup]="form" (ngSubmit)="aceptar()">
           @if(edicion){
           <mat-form-field>
-            <mat-label>ID</mat-label>
-            <input matInput formControlName="idoperacion" />
+            <mat-label>ID</mat-label> <input matInput formControlName="idOperacion" />
           </mat-form-field>
           }
           <div class="form-grid">
@@ -17,61 +16,27 @@
               <mat-label>Categoría</mat-label>
               <mat-select formControlName="categoria">
                 <mat-option value="">Selecciona una categoría</mat-option>
-                <mat-option *ngFor="let c of categorias" [value]="c">
-                  {{ c }}
-                </mat-option>
+                <mat-option *ngFor="let c of categorias" [value]="c"> {{ c }} </mat-option>
               </mat-select>
-              <mat-error *ngIf="form.get('categoria')?.hasError('required')">
-                Seleccione una categoría
-              </mat-error>
             </mat-form-field>
-
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Tipo</mat-label>
               <mat-select formControlName="tipo">
                 <mat-option value="">Selecciona tipo</mat-option>
-                <mat-option *ngFor="let t of tipos" [value]="t">
-                  {{ t }}
-                </mat-option>
+                <mat-option *ngFor="let t of tipos" [value]="t"> {{ t }} </mat-option>
               </mat-select>
-              <mat-error *ngIf="form.get('tipo')?.hasError('required')">
-                Seleccione el tipo
-              </mat-error>
             </mat-form-field>
-
             <mat-form-field appearance="outline" class="full-width">
-              <mat-label >Monto</mat-label>
-              <input matInput type="number" formControlName="monto" />
-              <mat-error *ngIf="form.get('monto')?.hasError('required')">
-                El monto es obligatorio
-              </mat-error>
-              <mat-error *ngIf="form.get('monto')?.hasError('min')">
-                El monto no puede ser negativo
-              </mat-error>
+              <mat-label>Monto</mat-label> <input matInput type="number" formControlName="monto" />
             </mat-form-field>
-
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Detalle</mat-label>
               <textarea matInput formControlName="detalle"></textarea>
             </mat-form-field>
-
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Fecha</mat-label>
               <input matInput [matDatepicker]="picker" formControlName="fecha" [min]="minFecha" />
               <mat-datepicker #picker></mat-datepicker>
-
-              <mat-error *ngIf="form.get('fecha')?.hasError('required')">
-                La fecha es obligatoria
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Usuario</mat-label>
-              <mat-select formControlName="usuarioId">
-                <mat-option *ngFor="let u of usuarios" [value]="u.idUsuario">
-                  {{ u.nombre }}
-                </mat-option>
-              </mat-select>
             </mat-form-field>
           </div>
           <div class="button-container">
