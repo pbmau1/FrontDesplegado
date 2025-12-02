@@ -7,7 +7,7 @@ import { JwtRequestDTO } from '../models/JwtRequestDTO';
   providedIn: 'root',
 })
 export class LoginService {
-  private apiUrl = 'http://backend-5v10.onrender.com/swagger-ui/index.html/login';
+  private apiUrl = 'http://backend-5v10.onrender.com/login';
 
   constructor(private http: HttpClient) {}
 
